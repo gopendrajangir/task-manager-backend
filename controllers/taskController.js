@@ -3,12 +3,15 @@ import Task from '../models/Task.js';
 
 export async function getAllTasks(req, res) {
   try {
-    const tasks = await Task.find({ userId: req.userId });
+    const tasks = await Task.find({ userId: req.userId }).sort({
+      createdAt: -1,
+    });
     res.status(200).json({ status: "success", data: tasks });
   } catch (error) {
     res.status(500).json({ success: false, message: "Error fetching tasks" });
   }
 }
+
 
 export async function getTaskById(req, res) {
   try {
